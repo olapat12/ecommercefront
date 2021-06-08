@@ -1,0 +1,168 @@
+.card {
+    max-width: 1000px;
+    margin: 2vh
+}
+
+.card-top {
+    padding: 0.7rem 5rem
+}
+
+.card-top a {
+    float: left;
+    margin-top: 0.7rem
+}
+
+.card-body {
+    padding: 0 5rem 5rem 5rem;
+    background-color: white;
+    background-size: cover;
+    background-repeat: no-repeat
+}
+.cheat{
+    margin-left: 15px;
+    margin-top: 20px;
+    width: 84%;
+    height: auto;
+    border: 1px solid rgb(216, 215, 215);
+}
+
+.inv{
+    border-bottom: 1px solid rgb(156, 154, 154);
+    width: 60%;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background-color: white;
+    margin-top: -10px;
+    height: 35px;
+    font-size: 15px;
+    outline: none;
+    margin-left: 15px;
+}
+
+.inss{
+    border-bottom: 1px solid rgb(156, 154, 154);
+    width: 100px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background-color: white;
+    margin-top: -10px;
+    height: 35px;
+    font-size: 15px;
+    outline: none;
+}
+.ben{
+    display: flex;
+    flex-direction: row;
+    margin-left: 15px;
+    margin-top: 20px;
+}
+
+@media(max-width:768px) {
+    .card-body {
+        padding: 0 1rem 1rem 1rem;
+        background-color: white;
+        background-size: cover;
+        background-repeat: no-repeat
+    }
+
+    .card-top {
+        padding: 0.7rem 1rem
+    }
+}
+
+.row {
+    margin: 0
+}
+
+.upper {
+    padding: 1rem 0;
+    justify-content: space-evenly
+}
+
+.icons {
+    margin-left: auto
+}
+
+form span {
+    color: rgb(179, 179, 179)
+}
+
+form {
+    padding: 2vh 0
+}
+
+input {
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    padding: 1vh;
+    margin-bottom: 4vh;
+    outline: none;
+    width: 100%;
+    background-color: rgb(247, 247, 247)
+}
+
+input:focus::-webkit-input-placeholder {
+    color: transparent
+}
+
+.header {
+    font-size: 1.5rem
+}
+
+.left {
+    background-color: #ffffff;
+    padding: 2vh
+}
+
+.left img {
+    width: 2rem
+}
+
+.left .col-4 {
+    padding-left: 0
+}
+
+.right .item {
+    padding: 0.3rem 0
+}
+
+.right {
+    background-color: #ffffff;
+    padding: 2vh
+}
+
+.col-8 {
+    padding: 0 1vh
+}
+
+.lower {
+    line-height: 2
+}
+
+.btn:hover {
+    color: white
+}
+
+a {
+    color: black
+}
+
+a:hover {
+    color: black;
+    text-decoration: none
+}
+
+input[type=checkbox] {
+    width: unset;
+    margin-bottom: unset
+}
+
+#cvv {
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 0.575), rgba(255, 255, 255, 0.541)), url("https://img.icons8.com/material-outlined/24/000000/help.png");
+    background-repeat: no-repeat;
+    background-position-x: 95%;
+    background-position-y: center
+}
+
+#cvv:hover {}
