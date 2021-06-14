@@ -24,9 +24,7 @@ class App extends Component {
       <Router>
        <div >
          <Switch>
-           <Route exact path='/' >
-              <Home />
-             </Route>
+           <Route exact path='/' component={Home} />
 
              <Route exact path='/trackorder' component={TrackOrder} />
 
