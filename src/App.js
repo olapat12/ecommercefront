@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Cart from './component/cart/Cart'
-import {HashRouter as Router, Route, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import './App.css';
 import './indexx.css'
 import Home from './component/test'
