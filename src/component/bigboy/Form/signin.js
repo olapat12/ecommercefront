@@ -16,7 +16,7 @@ const Signin = ({signup})=>{
     const [error, setError] = useState('')
     const [colorr, setColorr] = useState('') 
 
-    const saveUser = ()=>{
+    const saveUser = async ()=>{
         
         setLoading(true)
 
@@ -29,26 +29,25 @@ const Signin = ({signup})=>{
         }
 
         let data = {
-            username: username,
+            email: username,
             password: password
         }
            axios.post(`${baseUrl}user/login`, data)
           .then(res => {
-            //   console.log(res)
-            if(res.status > 300){
+               console.log(res.status)
+            if(res.status > 200){
                 setError('Invalid credentials, please try again')
                 setColorr('red')
                 setLoading(false)
             }
             else{
-               console.log(res.data)
-               localStorage.setItem('id', res.data.id)
-               localStorage.setItem('username', res.data.username)
-               localStorage.setItem('email', res.data.email)
+               localStorage.setItem('id', res.data.user.id)
+               localStorage.setItem('username', res.data.user.username)
                setLoading(false)
                history.push('/')
             }
           })
+          .then(data => console.log(data))
           .catch(err => {console.log(err); setLoading(false)} );
     }
 
@@ -81,7 +80,7 @@ const Signin = ({signup})=>{
         <p className='alll'>Don't have an account? <a className='sing' onClick={signup}>Sign up here</a></p>
 	</form><br/><br/>
     </div>
-        <Footer/>
+      
         </>
     )
 }

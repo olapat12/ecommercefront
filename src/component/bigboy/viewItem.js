@@ -1,53 +1,44 @@
 import React,{useState,useEffect} from 'react'
-import shirt from '../images/2.jpg'
-import {Product } from './json'
 import axios from 'axios'
 import { baseUrl } from '../const';
 
-let items;
 const Viewitem = ({id})=>{
 
     const [item, setItem] = useState({})
     const [pic,setPic] = useState('')
-    const [image, setImage] = useState([])
 
     useEffect(()=>{
 
-        axios.get(`${baseUrl}product/item/${id}`)
+        axios.get(`${baseUrl}product/findone/${id}`)
         .then(res =>{
             setItem(res.data)
-            setPic(res.data.pictures[0])
-            setImage(res.data.pictures)
+            setPic(res.data.picture1)
         })
         .catch(err => console.log(err))
-        // items = Product.filter(e => e.id === id)
-        // items = items[0]
-        // setItem(items)
-        // setImage(items.pictures)
-        // console.log(items.pictures[0]) 
-        // setPic(items.pictures[0])
     }, [])
 
-    const onView = (e)=>{
+    const onView1 = ()=>{
 
-        setPic(e)
-    }
-    
-    const onOut = ()=>{
-        setPic(item.pictures[0])
+        setPic(`${item.picture1}`)
     }
 
+    const onView2 = ()=>{
+
+        setPic(`${item.picture2}`)
+    }
+  
     return(
-        <div className='backk'>
+        <div className='backk' style={{backgroundColor: 'white'}}>
             <nav className='views'>
                 <h3>{item.name}</h3> 
             </nav>
 
             <div className='details'>
                 <nav className='details-1'>
-                   <img src={pic} alt='' className='inn' />
+                   <img src={`${baseUrl}${pic}`} alt='' className='inn' />
                    <div className='img-arr'>
-                       {image && image.map((e,i)=> <img src={e} alt='' onMouseEnter={()=>onView(e)} onMouseLeave={()=> onOut()} className='imm' key={i} />)}
+                       <img src={`${baseUrl}${item.picture1}`} className='imm' onMouseEnter={()=>onView1()}  />
+                       <img src={`${baseUrl}${item.picture2}`} className='imm' onMouseEnter={()=>onView2()}  />
                    </div>
                 </nav>
 
@@ -58,13 +49,6 @@ const Viewitem = ({id})=>{
                     <div className='descc'>
                         <p>{item.description} </p>
                     </div>
-
-                    {/* <h6 className='featt'>Features:</h6>
-                    <ul>
-                        <li>Black and white</li>
-                        <li>leather</li>
-                        <li>Low</li>
-                    </ul><br/> */}
                     <button className='buy-btn'>Add To Cart</button>
                     
                 </nav>

@@ -3,10 +3,13 @@ import Mynav from '../bigboy/activenav';
 import Footer from '../bigboy/footer';
 import './checkout.css'
 import axios from 'axios'
-import { baseUrl, nodeUrl } from '../const';
+import { baseUrl } from '../const';
 import Nigeria from '../address'
 import Button from 'reactstrap-button-loader';
 import { useHistory } from "react-router";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
+import { FaAddressBook } from 'react-icons/fa';
 
 let mycity =[];
 const Chekout = ()=>{
@@ -25,7 +28,9 @@ const Chekout = ()=>{
     const [states, setStates] = useState([])
     const [state, setState] = useState('')
     const [city, setCity] = useState('');
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
+    const [load, setLoad] = useState(false)
+    const [error, setError] = useState('')
 
     let price = (i) => (i).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
 
@@ -67,6 +72,7 @@ const Chekout = ()=>{
             })
             setTotal(tota)
             setAlltotal(tota+free)
+            setLoading(false)
         })
         .catch(err => console.log(err))
     }
@@ -74,46 +80,45 @@ const Chekout = ()=>{
     const onOrder = (e)=>{
 
         e.preventDefault();
-        setLoading(true)
+        setLoad(true)
         let arr = [];
+
+        if(phone.trim().length < 11){
+           setError('Phone number must be a valid number') 
+           return
+        }
+        if(addres.trim().length < 6){
+            setError('you must enter a valid address')
+            return
+        }
         
         cartlist.map(item =>{
             arr.push({
-                price : item.price,
-                size : item.size,
-                productname : item.productname,
-                pictures: item.pictures,
-                productid: item.id
+                productid: item._id
             })
         })
 
         let status;
 
         let data = {
-            name: localStorage.getItem('email'),
             deliveryaddress: addres,
             phone: phone,
             states: state,
             city: city,
-            totalprice: alltotal,
             orderr: arr
         }
         let oderid = ''
 
-        axios.post(`${baseUrl}order/save`, data)
+        axios.post(`${baseUrl}order/save/${localStorage.getItem('id')}`, data)
         .then(res => {
             status = res.status;
-            oderid = res.data.orderid
-            
+            oderid = res.data.orderid  
+            console.log(res.data)  
         })
         .then(()=>{
             if(status === 200){
                 setCart(0)
-                sendEmail(oderid)
-                cartlist.forEach(item =>{
-                    updateCart(item.id)
-                })
-                setLoading(false)
+                setLoad(false)
                 localStorage.setItem('order', oderid)  
                 history.push('/success') 
             }
@@ -123,36 +128,19 @@ const Chekout = ()=>{
         .catch(err => console.log(err))
     }
 
-    const sendEmail = (e)=>{
-
-        let data = {
-            email: localStorage.getItem('email'),
-            username: localStorage.getItem('username'),
-            orderid: e
-        }
-        axios.post(`${nodeUrl}send`, data )
-        .then(res => {
-            console.log(res.status)
-            // setLoading(false)
-        } )
-        .catch(err => console.log(err))
-    }
-
-    const updateCart = (idd)=>{
-
-        let data = {
-            username: 'hello',
-            password: 'world'
-        }
-        axios.put(`${baseUrl}cart/update/${parseInt(idd)}`, data)
-        .then(res => console.log(res.status))
-        .catch(err => console.log(err))
-    }
-
     return(
         <>
         <Mynav cart={cart} />
-        {cart < 1 ? <h4 style={{textAlign: 'center', color: 'gray', marginTop: 150}}>Oops, Your cartlist is empty</h4> :
+        {loading ? 
+        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 150}}>
+        <Loader
+         type="Circles"
+         color="gray"
+         height={70}
+         width={70}
+        />
+        </div> 
+        :cart < 1 ? <h4 style={{textAlign: 'center', color: 'gray', marginTop: 150}}>Oops, Your cartlist is empty</h4> :
             <>
             <div className="card">
     <div className="card-top border-bottom text-center"> <a href="#"> Back to shop</a> <span id="logo">BBBootstrap.com</span> </div>
@@ -192,7 +180,10 @@ const Chekout = ()=>{
                                     <option key={i} value={e}> {e}</option>
                                 ))}
                             </select>
-                        </div><br/><br/>
+                            
+                        </div>
+                        <p style={{color: 'red', textAlign: 'center'}}>{error}</p>
+                        <br/>
 
                          <p style={{marginLeft: 15, color: 'gray'}}>Mailing Address: <span style={{marginLeft: 15}}>{addres} {state} {city} </span> </p>           
                     </div>
@@ -205,12 +196,12 @@ const Chekout = ()=>{
                     <div className="row item">
                         {cartlist && cartlist.map(e =>(
                             <>
-                            <div className="col-4 align-self-center"><img className="img-fluid" src={e.pictures} alt='img' style={{marginBottom: 15}} /></div>
+                            <div className="col-4 align-self-center"><img className="img-fluid" src={`${baseUrl}${e.picture1}`} alt='img' style={{marginBottom: 15}} /></div>
                             <div className="col-8">
                             <div className="row"><b>#{price(e.price)}</b></div>
                             <div className="row text-muted">{e.productname}</div>
                             <div className="row">Size: {e.size}</div>
-                        </div>
+                            </div>
                             </>
                         ))}
                       
@@ -228,8 +219,8 @@ const Chekout = ()=>{
                         <div className="col text-left"><b>Total to pay</b></div>
                         <div className="col text-right"><b># {price(alltotal)}</b></div>
                     </div>
-                    <div className="row lower">
-                    </div> <Button loading={loading} style={{width: 200, marginLeft: '18%'}} onClick={onOrder}>Place Order</Button>
+                    <div className="row lower"><br/>
+                    </div> <Button loading={load} style={{width: 200, marginLeft: '18%'}} onClick={onOrder}>Place Order</Button>
                 </div>
             </div>
         </div>

@@ -21,7 +21,6 @@ const Navv = ()=>{
               <ul className='ul'>
                    <li><a href='/'>Home</a></li>
                    <li><a href='/register'>Sign In</a></li>
-                   <li><a href='/upload'>Register</a></li>
                    <li><a href='/trackorder'>Track Order</a></li>
                </ul>
             </Nav>

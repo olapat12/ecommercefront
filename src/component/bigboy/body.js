@@ -10,14 +10,19 @@ import Pagination from 'react-js-pagination'
 import Viewitem from './viewItem'
 import { baseUrl } from '../const'
 import axios from 'axios'
-
-
+import useStyles from './styles'
+import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { Tooltip } from '@material-ui/core';
+import  {CardMedia, Grid, Typography,CardContent, Card} from '@material-ui/core'
+import { useHistory } from "react-router";
 
 const Body = ({product, cartMe, currentPage, postPerPage,paginate, total})=>{
 
     const [step, setStep] = useState(1)
     const [id, setId] = useState()
     let price = (i) => (i).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
+    const classes = useStyles()
+    const history = useHistory();
 
     const view = (idd)=>{
 
@@ -25,16 +30,19 @@ const Body = ({product, cartMe, currentPage, postPerPage,paginate, total})=>{
         setStep(2)
     }
 
-    const onAddtoCart = (image,pid)=>{
+    const onAddtoCart = (pid)=>{
+
+        // if(!localStorage.getItem('id')){
+        //     history.push('/register')
+        //     return
+        // }
 
         let status;
         let data = {
-            userid: localStorage.getItem('id'),
-            pictures: image,
             productid: pid
         }
 
-        axios.post(`${baseUrl}cart/save`,data)
+        axios.post(`${baseUrl}cart/add/${localStorage.getItem('id')}`,data)
         .then(res => {
             status = res.status;
         })
@@ -43,7 +51,7 @@ const Body = ({product, cartMe, currentPage, postPerPage,paginate, total})=>{
                 cartMe();
             }
         })
-        .catch(err => console.log(err))
+        .catch(err => history.push('/register'))
 
     }
 
@@ -68,31 +76,7 @@ const Body = ({product, cartMe, currentPage, postPerPage,paginate, total})=>{
                 <img className='logoss'  src={newbalance} alt='new balance' />
                 <img className='logoss'  src={puma} alt='puma' />
         </section>
-
-
         <Featured />
-        <div className='hero-search'>
-            <div className='wrapper'>
-                <div className='search-grid'>
-                    <div>
-                        <select name='' className='form-control'>
-                            <option>-- Category --</option>
-                        </select>
-                    </div>
-                    <div>
-                        <select name='' className='form-control'>
-                            <option>-- Select --</option>
-                        </select>
-                    </div>
-                    <div>
-                        <select name='' className='form-control'>
-                            <option>category</option>
-                        </select>
-                    </div>
-
-                </div>
-            </div>
-        </div>
         </div>
 
         <main>
@@ -100,29 +84,48 @@ const Body = ({product, cartMe, currentPage, postPerPage,paginate, total})=>{
                <div className='wrapper'>
                <div className='section-header'>
                     <h2><span className='text-main'>Ne</span>w Arrivals</h2>
-                    <div className='mywrap'>
-                        {product && product.map(e => {
-
-                            return(
-                             <div className='product' key={e.id} >
-                                <img src={e.pictures[0]} alt='image' onClick={()=> view(e.id)} className='sneak'  />
-                                <h5 className='p-name'>{e.name} </h5>
-                                <h6>Size: {e.size}</h6>
-                                <h6 className='p-price'>#{price(e.price)} <br/>
-                                <button className='buy-btn' onClick={()=> onAddtoCart(e.pictures[0],e.id)}>Add to Cart</button>
-                                </h6>
-                            </div>
-                            )
-                        })}
-                    </div>
-                    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 20}}>
+        <main>
+            <div className={classes.toolbar} />
+           <Grid container justify='center' spacing={4} >
+                      {product && product.map(product =>(
+                          <Grid item key={product._id} xs={12} sm={6} md={4} lg={3}>
+                               <Card className={classes.root}>
+                         <CardMedia style={{width: '99%', height: 330, cursor: 'pointer'}} image={`${baseUrl}${product.picture1}`} title={product.name} />
+                    
+              <CardContent>
+                <div className={classes.cardContent}>
+                    <Typography variant='body1' gutterBottom>
+                        {product.name}
+                    </Typography>
+                    <Typography variant='body2'>
+                       #{price(product.price)}
+                    </Typography>
+                </div>
+                <Typography color='black' variant='body1'>
+                        {product.category}
+                    </Typography>
+                    <Typography color='black' variant='body1'>
+                       Size: {product.size}
+                    </Typography>
+            </CardContent>
+            <Tooltip title='add to bag' placement='top' onClick={()=> onAddtoCart(product._id)}>
+            <p style={{float: 'right', cursor: 'pointer', marginRight: 15, marginBottom: 15}}>
+             <AiOutlineShoppingCart color='gray' size={26} />
+            </p>
+            </Tooltip>
+        </Card>
+                          </Grid>   
+                      ))}
+           </Grid>
+       </main>
+                    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 40}}>
                     <Pagination
               itemClass="page-item"
               linkClass="page-link"
               activePage={currentPage}
               itemsCountPerPage={postPerPage}
               totalItemsCount={total}
-              pageRangeDisplayed={3}
+              pageRangeDisplayed={2}
               onChange={paginate}
               prevPageText="Prev"
               firstPageText="First"

@@ -1,10 +1,9 @@
 import React, {useState} from 'react'
 import './form.css'
-import Footer from '../footer'
 import Button from 'reactstrap-button-loader';
 import Signin from './signin';
 import axios from 'axios'
-import { baseUrl, nodeUrl } from '../../const';
+import { baseUrl} from '../../const';
 import { useHistory } from "react-router";
 import RegisterNav from '../registernav';
 
@@ -13,7 +12,7 @@ const TrackOrder = ()=>{
     const [loading, setLoading] = useState(false)
     const history = useHistory();
 
-    const [step, setStep] = useState(1)
+    const [step, setStep] = useState(2)
 
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
@@ -54,12 +53,12 @@ const TrackOrder = ()=>{
         let data = {
             email: email,
             username: username,
-            password: password
+            password: password,
+            conpassword: conPassword
         }
-           axios.post(`${baseUrl}user/save`, data)
+           axios.post(`${baseUrl}user/register`, data)
           .then(res => {
-            //   console.log(res)
-            if(res.status === 201){
+            if(res.status > 200){
                 setError(res.data)
                 setColorr('red')
                 setLoading(false)
@@ -67,11 +66,8 @@ const TrackOrder = ()=>{
             else if(res.status === 200){
                 setError('Account successfuly created!!!')
                 setColorr('green')
-                sendEmail()
-                //console.log(res.data)
                 localStorage.setItem('id', res.data.id)
                 localStorage.setItem('username', res.data.username)
-                localStorage.setItem('email', res.data.email)
                 setTimeout(() => {
                     setError('') 
                 }, 2500);
@@ -80,17 +76,6 @@ const TrackOrder = ()=>{
             }
           })
           .catch(err => {console.log(err); setLoading(false)} );
-    }
-
-    const sendEmail = ()=>{
-
-        let data = {
-            email: email,
-            username: username
-        }
-        axios.post(`${nodeUrl}register`, data)
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
     }
 
     const paswordCheck = ()=>{
@@ -131,7 +116,7 @@ const TrackOrder = ()=>{
           
           <span style={{color: colorr, fontSize: 16,  marginLeft: '23%'}}>{error}</span>
           <p>
-              <Button className='submit' onClick={saveUser} style={{width: 200, marginLeft: '22%' }} loading={loading}>Create My Account</Button>
+              <Button className='submit' onClick={saveUser} style={{width: 230, marginLeft: '22%' }} loading={loading}>Create My Account</Button>
               {/* <input type="submit" value="Create My Account" id="submit" /> */}
           </p>
   
@@ -139,7 +124,6 @@ const TrackOrder = ()=>{
       </form><br/><br/>
       </div> : <Signin signup={register} />
         }
-        <Footer/>
         </>
     )
 }

@@ -15,13 +15,14 @@ export default makeStyles((theme)=>({
     },
     cardContent:{
         display: 'flex',
-        justifyContent: 'space-between'
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
     },
     toolbar:theme.mixins.toolbar,
     content:{
         flexGrow: 1,
         backgroundColor: theme.palette.background.default,
-        padding: theme.spacing(3),
+      //  padding: theme.spacing(3),
     },
     roott: {
         flexGrow: 1

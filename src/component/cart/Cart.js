@@ -10,19 +10,21 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import { useHistory } from "react-router";
 import Mynav from '../bigboy/activenav'
 import Footer from '../bigboy/footer'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 
 
 const Cart = ()=>{
 
   const classes = useStyles()
   const history = useHistory();
-  let tempRef = (base64Stringuri) => `${base64Stringuri}`;
 
   let price = (i) => (i).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
 
   const [cartList, setCartList] = useState([]);
   const [total, setTotal] = useState(0);
   const [cart, setCart] = useState(0);
+  const [loading, setLoading] = useState(true)
 
   useEffect(()=>{
 
@@ -41,10 +43,22 @@ const Cart = ()=>{
             tota = item.price + tota;    
         })
         setTotal(tota)
+        setLoading(false)
     })
     .catch(err => console.log(err))
 }
 
+  const emptyCart = ()=>{
+
+    axios.delete(`${baseUrl}cart/emptycart/${localStorage.getItem('id')}`)
+    .then(res =>{
+      if(res.status === 200){
+        setCartList([])
+        setCart(0)
+      }
+    })
+    .catch(err => console.log(err))
+  }
 
   const submit = (id,price) => {
 
@@ -64,10 +78,10 @@ const Cart = ()=>{
     })
   };
 
-  const  remove = (id, price) =>{
+  const  remove = (pid, price) =>{
 
     let status;
-    axios.delete(`${baseUrl}cart/remove/${id}`)
+    axios.delete(`${baseUrl}cart/remove/${pid}/${localStorage.getItem('id')}`)
     .then(res =>{
      status = res.status
     })
@@ -75,11 +89,10 @@ const Cart = ()=>{
       if(status === 200){
         setCart(cart-1)
         setTotal(total-price)
-        setCartList(cartList.filter(e => e.id !== id))
+        setCartList(cartList.filter(e => e._id !== pid))
       }
     })
     .catch(err => console.log(err))
-    // setTotal(t => t - price) 
 
   }
 
@@ -88,16 +101,24 @@ const Cart = ()=>{
         <Mynav cart={cart} />
         <Container>
         <div className={classes.toolBar} />
-           <h2 className={classes.title}>Your shopping cartlist</h2><br/>
-            {cart < 1 ? <h4 style={{textAlign: 'center', color: 'gray'}}>Oops, Your cartlist is empty</h4>
+           <h2 className={classes.title}>Your shopping cartlist</h2><br/><br/>
+            {loading ? 
+            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <Loader
+                 type="Circles"
+                 color="gray"
+                 height={70}
+                 width={70}
+                />
+            </div> : cart < 1 ?<div> <h4 style={{textAlign: 'center', color: 'gray', marginTop: 30, marginBottom: 50}}>Oops, Your cartlist is empty</h4><br/><br/><br/></div>
             :
             <div>
                 <Grid container spacing={3}>
            {cartList && cartList.map(item =>(
-                 <Grid item xs={12} sm={4} key={item.id}>
-                        <CardMedia style={{width: 300, height: 320}} image={tempRef(item.pictures)} alt={item.name} />
+                 <Grid item xs={12} sm={4} key={item.i_d}>
+                        <CardMedia style={{width: 300, height: 320}} image={`${baseUrl}${item.picture1}`} alt={item.name} />
                        <CardContent className={classes.cardContent}>
-                           <Typography variant='body1'>{item.productname} </Typography>
+                           <Typography variant='body1'>{item.name} </Typography>
                            <Typography variant='body1'>size: {item.size} </Typography>
                            <Typography variant='body'>Price: #{price(item.price)} </Typography>
                        </CardContent>  
@@ -109,7 +130,7 @@ const Cart = ()=>{
                          }}
                          arrow
                          >
-                        <IconButton aria-label='remove from cartlist' role='alert' onClick={()=>submit(item.id, item.price)} >
+                        <IconButton aria-label='remove from cartlist' role='alert' onClick={()=>submit(item._id, item.price)} >
                      <DeleteIcon color='secondary' fontSize='large' />
                       </IconButton>
                       </Tooltip>
@@ -123,9 +144,7 @@ const Cart = ()=>{
              Subtotal: #{price(total)}
        </Typography>
         <div >
-          <Button className={classes.emptyButton} size='large' type='button' variant='contained' color='secondary' onClick={()=> {
-
-          }}>
+          <Button className={classes.emptyButton} size='large' type='button' variant='contained' color='secondary' onClick={()=> emptyCart()}>
             Empty Cart
         </Button>
           <span style={{marginLeft: 15}}></span>
@@ -138,11 +157,10 @@ const Cart = ()=>{
         </Button>
        </div>
         </div>
-        <Footer />
-            </div>
+         </div>
           }
        </Container>
-      
+       <Footer />
        </>
   )
 

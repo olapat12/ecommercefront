@@ -12,11 +12,6 @@ const RegisterNav = ()=>{
          <a href='/'><img alt='' src={logo} style={{width: 150, height: 50, cursor: 'pointer'}}  /></a> 
              <Navbar.Toggle aria-controls="basic-navbar-nav" />
              <Navbar.Collapse id="basic-navbar-nav">
-             <Nav className="mr-auto">
-              <ul className='ul'>
-                   <li><a href='/'>Home</a></li>
-               </ul>
-            </Nav>
        </Navbar.Collapse>
       </Navbar>
        
