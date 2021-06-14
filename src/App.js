@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Cart from './component/cart/Cart'
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import {HashRouter as Router, Route, Switch} from 'react-router-dom'
 import './App.css';
 import './indexx.css'
 import Home from './component/test'
@@ -26,7 +26,6 @@ class App extends Component {
          <Switch>
            <Route exact path='/' >
               <Home />
-              {/* <HomePage/> */}
              </Route>
 
              <Route exact path='/trackorder' component={TrackOrder} />
