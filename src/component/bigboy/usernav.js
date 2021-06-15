@@ -1,9 +1,9 @@
 import React,{useState,useEffect} from 'react'
 import { Navbar, Nav} from 'react-bootstrap'
 import { BsFillBagFill } from "react-icons/bs";
-import { BiRun, BiHelpCircle } from "react-icons/bi";
+import { BiRun } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
-import logo from '../images/logo.png'
+import logo from '../images/big.jpg'
 import { Tooltip } from '@material-ui/core';
 import './big.css'
 import { useHistory } from "react-router";
@@ -36,12 +36,12 @@ const Navs = ({cart})=>{
         <>
     
         <Navbar bg="white" expand="lg" fixed="top">
-         <a href='/'><img alt='' src={logo} style={{width: 150, height: 50, cursor: 'pointer'}}  /></a> 
+         <a href='/'><img alt='' src={logo} style={{width: '100%', height: '100%', marginTop: -10, cursor: 'pointer'}}  /></a> 
              {/* <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand> */}
              <Navbar.Toggle aria-controls="basic-navbar-nav" />
              <Navbar.Collapse id="basic-navbar-nav">
              <Nav className="mr-auto">
-              <ul className='ul'>
+              <ul className='ul' style={{marginTop: 10}}>
                    <li><a href='/'>Home</a></li>
                    <li><a href='/trackorder'>Track Order</a></li>
                </ul>

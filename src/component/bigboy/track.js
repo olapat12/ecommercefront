@@ -100,12 +100,12 @@ const TrackOrder = ()=>{
         <div className='badd'><br/>
             <h4 className='trac'>Track Order</h4><br/>
             <nav className='track'><br/>
+            <p className='yours'>Your tracking number can be found in your email address</p>
             <p className='err'>{error}</p>
                 <input className='inputt' placeholder='Enter Order ID' onChange={(e)=>{
                     setOrderid(e.target.value)
                 }} />
                 <p className='ruless'></p>
-                <p className='yours'>Your tracking number can be found in your email address</p>
             </nav>
             <Button className='loads' style={{width: 200, marginTop: 20}} loading={loading} onClick={onSearch} >Track</Button><br/>
         </div>

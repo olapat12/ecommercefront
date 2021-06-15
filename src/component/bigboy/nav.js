@@ -1,10 +1,6 @@
 import React from 'react'
-import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from 'react-bootstrap'
-import { BsFillBagFill } from "react-icons/bs";
-import { BiRun, BiHelpCircle } from "react-icons/bi";
-import { CgProfile } from "react-icons/cg";
-import logo from '../images/logo.png'
-import { Tooltip } from '@material-ui/core';
+import { Navbar, Nav} from 'react-bootstrap'
+import logo from '../images/big.jpg'
 import './big.css'
 
 const Navv = ()=>{
@@ -13,12 +9,11 @@ const Navv = ()=>{
         <>
     
         <Navbar bg="white" expand="lg" fixed="top">
-         <a href='/'><img alt='' src={logo} style={{width: 150, height: 50, cursor: 'pointer'}}  /></a> 
-             {/* <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand> */}
+         <a href='/'><img alt='' src={logo} style={{width: '100%', height: '100%', marginTop: -10}}  /></a> 
              <Navbar.Toggle aria-controls="basic-navbar-nav" />
              <Navbar.Collapse id="basic-navbar-nav">
              <Nav className="mr-auto">
-              <ul className='ul'>
+              <ul className='ul' style={{marginTop: 10}}>
                    <li><a href='/'>Home</a></li>
                    <li><a href='/register'>Sign In</a></li>
                    <li><a href='/trackorder'>Track Order</a></li>
