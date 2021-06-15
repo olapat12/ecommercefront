@@ -19,23 +19,19 @@ import { useHistory } from "react-router";
 const Body = ({product, cartMe, currentPage, postPerPage,paginate, total})=>{
 
     const [step, setStep] = useState(1)
-    const [id, setId] = useState()
+    const [id, setId] = useState(0)
     let price = (i) => (i).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
     const classes = useStyles()
     const history = useHistory();
 
     const view = (idd)=>{
 
-        setId(idd)
-        setStep(2)
+        // setId(idd)
+        // setStep(2)
+        history.push(`/view/${idd}`)
     }
 
     const onAddtoCart = (pid)=>{
-
-        // if(!localStorage.getItem('id')){
-        //     history.push('/register')
-        //     return
-        // }
 
         let status;
         let data = {
@@ -60,8 +56,6 @@ const Body = ({product, cartMe, currentPage, postPerPage,paginate, total})=>{
         product = product.slice(indexoffirstPost, indexoflastPost);
 
     return(
-        <>
-         {step == 1 ? 
             <>
              <div className='hero-wrapper'>
              <div className='hero-section' >
@@ -90,7 +84,7 @@ const Body = ({product, cartMe, currentPage, postPerPage,paginate, total})=>{
                       {product && product.map(product =>(
                           <Grid item key={product._id} xs={12} sm={6} md={4} lg={3}>
                                <Card className={classes.root}>
-                         <CardMedia style={{width: '99%', height: 330, cursor: 'pointer'}} image={`${baseUrl}${product.picture1}`} title={product.name} onClick={()=> view(product._id)} />
+                         <CardMedia style={{width: '99%', height: 330, cursor: 'pointer'}} image={`${baseUrl}${product.picture1}`} title={product.name} onClick={()=>view(product._id)} />
                     
               <CardContent>
                 <div className={classes.cardContent}>
@@ -138,8 +132,6 @@ const Body = ({product, cartMe, currentPage, postPerPage,paginate, total})=>{
             </div>
         </main> 
       
-            </> : <Viewitem id={id} />
-        }
         </>
     )
 }

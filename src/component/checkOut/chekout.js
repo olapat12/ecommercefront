@@ -85,10 +85,12 @@ const Chekout = ()=>{
 
         if(phone.trim().length < 11){
            setError('Phone number must be a valid number') 
+           setLoading(false)
            return
         }
         if(addres.trim().length < 6){
             setError('you must enter a valid address')
+            setLoading(false)
             return
         }
         
@@ -125,7 +127,7 @@ const Chekout = ()=>{
 
             console.log('error')
         })
-        .catch(err => console.log(err))
+        .catch(() => setLoading(false))
     }
 
     return(
@@ -143,7 +145,6 @@ const Chekout = ()=>{
         :cart < 1 ? <h4 style={{textAlign: 'center', color: 'gray', marginTop: 150}}>Oops, Your cartlist is empty</h4> :
             <>
             <div className="card">
-    <div className="card-top border-bottom text-center"> <a href="#"> Back to shop</a> <span id="logo">BBBootstrap.com</span> </div>
     <div className="card-body">
         <div className="row upper"> <span>Delivery Address</span> </div>
         <div className="row">
@@ -151,14 +152,14 @@ const Chekout = ()=>{
                 <div className="left border">
                     <div className='cheat'>
                     <div className='ben'>
-                            <p style={{ color: 'gray'}}>Phone number :</p>
+                            <p className="noshow" style={{ color: 'gray'}}>Phone number :</p>
                             <input className='inv' placeholder='Phone number' value={phone} onChange={(e)=>{
                                 setPhone(e.target.value)
                             }} />
                         </div>
 
                         <div className='ben'>
-                            <p style={{ color: 'gray'}}>Address :</p>
+                            <p className="noshow" style={{ color: 'gray'}}>Address :</p>
                             <input className='inv' placeholder='Address' value={addres} onChange={(e)=>{
                                 setAddres(e.target.value)
                             }} />

@@ -9,6 +9,7 @@ import AddressForm from './component/bigboy/Form/signup';
 import ClotheForm from './component/bigboy/Form/clotheform';
 import Chekout from './component/checkOut/chekout';
 import Success from './component/checkOut/success';
+import Viewitem from './component/bigboy/viewItem';
 
 
 class App extends Component {
@@ -31,6 +32,8 @@ class App extends Component {
              <Route exact path='/register' component={AddressForm} />
 
              <Route exact path='/upload' component={ClotheForm} />
+
+             <Route exact path='/view/:id' component={Viewitem}/>
 
              <Route exact path='/cart' component={Cart} />
 

@@ -1,9 +1,12 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 import { baseUrl } from '../const';
+import Mynav from './activenav';
+import { useParams } from 'react-router';
 
-const Viewitem = ({id})=>{
+const Viewitem = ()=>{
 
+    const {id} = useParams()
     const [item, setItem] = useState({})
     const [pic,setPic] = useState('')
 
@@ -28,6 +31,8 @@ const Viewitem = ({id})=>{
     }
   
     return(
+        <>
+        <Mynav />
         <div className='backk' style={{backgroundColor: 'white'}}>
             <nav className='views'>
                 <h3>{item.name}</h3> 
@@ -54,6 +59,7 @@ const Viewitem = ({id})=>{
                 </nav>
             </div>
         </div>
+        </>
     )
 }
 

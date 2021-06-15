@@ -106,8 +106,8 @@ const TrackOrder = ()=>{
                 }} />
                 <p className='ruless'></p>
                 <p className='yours'>Your tracking number can be found in your email address</p>
-            </nav><br/>
-            <Button className='loads' style={{width: 200}} loading={loading} onClick={onSearch} >Track</Button><br/>
+            </nav>
+            <Button className='loads' style={{width: 200, marginTop: 20}} loading={loading} onClick={onSearch} >Track</Button><br/>
         </div>
         {step !== 1 ? <App/> : null}
         
