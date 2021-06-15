@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/ecommercefront/static/css/main.503c5433.chunk.css",
+    "main.js": "/ecommercefront/static/js/main.bbf1f28c.chunk.js",
+    "main.js.map": "/ecommercefront/static/js/main.bbf1f28c.chunk.js.map",
+    "runtime-main.js": "/ecommercefront/static/js/runtime-main.15baadc7.js",
+    "runtime-main.js.map": "/ecommercefront/static/js/runtime-main.15baadc7.js.map",
+    "static/css/2.2f341f82.chunk.css": "/ecommercefront/static/css/2.2f341f82.chunk.css",
+    "static/js/2.373b8b6a.chunk.js": "/ecommercefront/static/js/2.373b8b6a.chunk.js",
+    "static/js/2.373b8b6a.chunk.js.map": "/ecommercefront/static/js/2.373b8b6a.chunk.js.map",
+    "index.html": "/ecommercefront/index.html",
+    "static/css/2.2f341f82.chunk.css.map": "/ecommercefront/static/css/2.2f341f82.chunk.css.map",
+    "static/css/main.503c5433.chunk.css.map": "/ecommercefront/static/css/main.503c5433.chunk.css.map",
+    "static/js/2.373b8b6a.chunk.js.LICENSE.txt": "/ecommercefront/static/js/2.373b8b6a.chunk.js.LICENSE.txt",
+    "static/media/adidaslogo.cd0e736d.jpg": "/ecommercefront/static/media/adidaslogo.cd0e736d.jpg",
+    "static/media/big.css": "/ecommercefront/static/media/bacc.35ce30c3.jpg",
+    "static/media/jordan1lowmilitary.71869efd.jpg": "/ecommercefront/static/media/jordan1lowmilitary.71869efd.jpg",
+    "static/media/lacoste.cceaeff4.png": "/ecommercefront/static/media/lacoste.cceaeff4.png",
+    "static/media/logo.7e432501.png": "/ecommercefront/static/media/logo.7e432501.png",
+    "static/media/nike23.34012520.jpg": "/ecommercefront/static/media/nike23.34012520.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.15baadc7.js",
+    "static/css/2.2f341f82.chunk.css",
+    "static/js/2.373b8b6a.chunk.js",
+    "static/css/main.503c5433.chunk.css",
+    "static/js/main.bbf1f28c.chunk.js"
+  ]
+}
