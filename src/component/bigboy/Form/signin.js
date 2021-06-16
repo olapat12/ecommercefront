@@ -33,7 +33,6 @@ const Signin = ({signup})=>{
         }
            axios.post(`${baseUrl}user/login`, data)
           .then(res => {
-               console.log(res.status)
             if(res.status > 200){
                 setError('Invalid credentials, please try again')
                 setColorr('red')

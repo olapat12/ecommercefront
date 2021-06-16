@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import './big.css'
 import nike from '../images/nikelogo.jpg'
 import adidas from '../images/adidaslogo.jpg'
@@ -15,7 +15,7 @@ import { Tooltip } from '@material-ui/core';
 import  {CardMedia, Grid, Typography,CardContent, Card} from '@material-ui/core'
 import { useHistory } from "react-router";
 
-const Body = ({product, cartMe, currentPage, postPerPage,paginate, total})=>{
+const Body = ({product, cartMe, currentPage, postPerPage,paginate, total, mycart})=>{
 
     let price = (i) => (i).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
     const classes = useStyles()
@@ -23,8 +23,6 @@ const Body = ({product, cartMe, currentPage, postPerPage,paginate, total})=>{
 
     const view = (idd)=>{
 
-        // setId(idd)
-        // setStep(2)
         history.push(`/view/${idd}`)
     }
 
@@ -78,35 +76,42 @@ const Body = ({product, cartMe, currentPage, postPerPage,paginate, total})=>{
         <main>
             <div className={classes.toolbar} />
            <Grid container justify='center' spacing={4} >
-                      {product && product.map(product =>(
-                          <Grid item key={product._id} xs={12} sm={6} md={4} lg={3}>
-                               <Card className={classes.root}>
-                         <CardMedia style={{width: '99%', height: 330, cursor: 'pointer'}} image={`${baseUrl}${product.picture1}`} title={product.name} onClick={()=>view(product._id)} />
-                    
-              <CardContent>
-                <div className={classes.cardContent}>
-                    <Typography variant='body1' style={{fontWeight: 'bold', color: 'black'}} gutterBottom>
-                        {product.name}
-                    </Typography>
-                    <Typography variant='body2'>
-                       #{price(product.price)}
-                    </Typography>
-                </div>
-                <Typography variant='body2'>
-                        {product.category}
-                    </Typography>
-                    <Typography  variant='body2'>
-                       Size: {product.size}
-                    </Typography>
-            </CardContent>
-            <Tooltip title='add to bag' placement='top' onClick={()=> onAddtoCart(product._id)}>
-            <p style={{float: 'right', cursor: 'pointer', marginRight: 15, marginBottom: 15}}>
-             <AiOutlineShoppingCart color='gray' size={26} />
-            </p>
-            </Tooltip>
-        </Card>
-                          </Grid>   
-                      ))}
+                      {product && product.map(product =>{
+                          
+                          let added = mycart.includes(product._id) ? <Typography variant='body1' style={{fontWeight: 'bolder', color: 'red', marginBottom: 5}}>
+                           Added
+                       </Typography>: <AiOutlineShoppingCart color='gray' size={26} />
+                          return(
+                            <Grid item key={product._id} xs={12} sm={6} md={4} lg={3}>
+                            <Card className={classes.root}>
+                      <CardMedia style={{width: '99%', height: 330, cursor: 'pointer'}} image={`${baseUrl}${product.picture1}`} title={product.name} onClick={()=>view(product._id)} />
+                 
+           <CardContent>
+             <div className={classes.cardContent}>
+                 <Typography variant='body1' style={{fontWeight: 'bold', color: 'black'}} gutterBottom>
+                     {product.name}
+                 </Typography>
+                 <Typography variant='body2'>
+                    #{price(product.price)}
+                 </Typography>
+             </div>
+             <Typography variant='body2'>
+                     {product.category}
+                 </Typography>
+                 <Typography  variant='body2'>
+                    Size: {product.size}
+                 </Typography>
+         </CardContent>
+         
+         <Tooltip title='add to bag' placement='top' onClick={()=> onAddtoCart(product._id)}>
+         <p style={{float: 'right', cursor: 'pointer', marginRight: 15, marginBottom: 15}}>
+          {added}
+         </p>
+         </Tooltip>
+     </Card>
+      </Grid> 
+                          )
+                      })}
            </Grid>
        </main>
                     <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 40}}>
