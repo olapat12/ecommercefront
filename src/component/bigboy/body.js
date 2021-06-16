@@ -90,7 +90,7 @@ const Body = ({product, cartMe, currentPage, postPerPage,paginate, total})=>{
                       {product && product.map(product =>(
                           <Grid item key={product._id} xs={12} sm={6} md={4} lg={3}>
                                <Card className={classes.root}>
-                         <CardMedia style={{width: '99%', height: 330, cursor: 'pointer'}} image={`${baseUrl}${product.picture1}`} title={product.name} />
+                         <CardMedia style={{width: '99%', height: 330, cursor: 'pointer'}} image={`${baseUrl}${product.picture1}`} title={product.name} onClick={()=> view(product._id)} />
                     
               <CardContent>
                 <div className={classes.cardContent}>
