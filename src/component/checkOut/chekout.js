@@ -9,7 +9,7 @@ import Button from 'reactstrap-button-loader';
 import { useHistory } from "react-router";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
-import { FaAddressBook } from 'react-icons/fa';
+
 
 let mycity =[];
 const Chekout = ()=>{

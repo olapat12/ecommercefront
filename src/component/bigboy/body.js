@@ -7,7 +7,6 @@ import newbalance from '../images/newbalance.jpg'
 import Featured from './featured'
 import puma from '../images/pumaa.png'
 import Pagination from 'react-js-pagination'
-import Viewitem from './viewItem'
 import { baseUrl } from '../const'
 import axios from 'axios'
 import useStyles from './styles'
@@ -18,8 +17,6 @@ import { useHistory } from "react-router";
 
 const Body = ({product, cartMe, currentPage, postPerPage,paginate, total})=>{
 
-    const [step, setStep] = useState(1)
-    const [id, setId] = useState(0)
     let price = (i) => (i).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
     const classes = useStyles()
     const history = useHistory();
@@ -59,8 +56,8 @@ const Body = ({product, cartMe, currentPage, postPerPage,paginate, total})=>{
             <>
              <div className='hero-wrapper'>
              <div className='hero-section' >
-            <h1>Clothing made for you</h1>
-            <p>Find the perfect outfit.</p>
+            <h1 style={{textAlign: 'center'}}>Clothing made for you</h1>
+            <p style={{textAlign: 'center'}}>Find the perfect outfit.</p>
         </div>
 
         <section  className='contain'>
@@ -88,17 +85,17 @@ const Body = ({product, cartMe, currentPage, postPerPage,paginate, total})=>{
                     
               <CardContent>
                 <div className={classes.cardContent}>
-                    <Typography variant='body1' gutterBottom>
+                    <Typography variant='body1' style={{fontWeight: 'bold', color: 'black'}} gutterBottom>
                         {product.name}
                     </Typography>
                     <Typography variant='body2'>
                        #{price(product.price)}
                     </Typography>
                 </div>
-                <Typography color='black' variant='body1'>
+                <Typography variant='body2'>
                         {product.category}
                     </Typography>
-                    <Typography color='black' variant='body1'>
+                    <Typography  variant='body2'>
                        Size: {product.size}
                     </Typography>
             </CardContent>

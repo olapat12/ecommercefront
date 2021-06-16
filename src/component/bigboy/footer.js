@@ -7,7 +7,7 @@ const Footer = ()=>{
 
     return(
         <>
-        <footer className='mt-5 py-5' style={{backgroundColor: 'black', height: 'auto'}}>
+        <footer className='mt-5 py-5' style={{backgroundColor: 'rgb(59, 59, 59)', height: 'auto'}}>
             <div className='row container mx-auto pt-5'>
                 <div className='footer-one col-lg-3 col-md-6 col-12'>
                     <img src={logo} alt='logo' style={{width: 150, height: 50}} />

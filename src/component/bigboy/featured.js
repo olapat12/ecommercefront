@@ -11,7 +11,7 @@ const Featured = ()=>{
         <div id='featured'>
             <section>
                 <h2>Our Featured</h2><br/>
-                <p className='here' style={{fontWeight: 'bold', textDecoration: 'underline', fontsize: 23}}>Here you check out our new products with fair price. ?</p>
+                <p className='here' style={{fontWeight: 'bold', textDecoration: 'underline', fontsize: 23, color: 'rgb(82, 80, 80)'}}>Here you check out our new products with fair price. ?</p>
 
                 <div className='mywrap'>
                     <div className='product'>

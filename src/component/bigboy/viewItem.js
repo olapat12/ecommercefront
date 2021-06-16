@@ -3,12 +3,16 @@ import axios from 'axios'
 import { baseUrl } from '../const';
 import Mynav from './activenav';
 import { useParams } from 'react-router';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 
 const Viewitem = ()=>{
 
     const {id} = useParams()
     const [item, setItem] = useState({})
     const [pic,setPic] = useState('')
+    const [loading, setLoading] = useState(true)
+    const [cart, setCart] = useState(0)
 
     useEffect(()=>{
 
@@ -18,6 +22,9 @@ const Viewitem = ()=>{
             setPic(res.data.picture1)
         })
         .catch(err => console.log(err))
+
+        getCartList()
+        setLoading(false)
     }, [])
 
     const onView1 = ()=>{
@@ -29,10 +36,27 @@ const Viewitem = ()=>{
 
         setPic(`${item.picture2}`)
     }
+
+    const getCartList = ()=>{
+
+        axios.get(`${baseUrl}cart/cartlist/${localStorage.getItem('id')}`)
+        .then(res => setCart(res.data.length))
+        .catch(err => setLoading(false))
+    }
   
     return(
         <>
-        <Mynav />
+        <Mynav cart={cart} />
+        {loading && loading ?
+        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 150}}>
+        <Loader
+         type="Circles"
+         color="gray"
+         height={70}
+         width={70}
+         />
+        </div> : null
+        } 
         <div className='backk' style={{backgroundColor: 'white'}}>
             <nav className='views'>
                 <h3>{item.name}</h3> 
