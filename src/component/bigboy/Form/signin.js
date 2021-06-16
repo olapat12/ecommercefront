@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import './form.css'
-import Footer from '../footer'
 import Button from 'reactstrap-button-loader';
 import { baseUrl } from '../../const';
 import axios from 'axios'
@@ -74,7 +73,7 @@ const Signin = ({signup})=>{
         </div>
         <span style={{color: colorr, fontSize: 16,  marginLeft: '20%'}}>{error}</span>
 		<p>
-        <Button className='submit' onClick={saveUser} style={{width: 200, marginLeft: '22%' }} loading={loading}>Login</Button>
+        <Button className='submit' onClick={saveUser} style={{width: 200, marginLeft: '22%', fontSize: 17 }} loading={loading}>Login</Button>
 		</p>
 
         <p className='alll'>Don't have an account? <a className='sing' onClick={signup}>Sign up here</a></p>

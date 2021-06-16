@@ -26,7 +26,7 @@ h2 {
     flex-direction: row;
     border-left: 10px;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 5px;
   }
   .form11 {
     display: block;
@@ -50,14 +50,11 @@ h2 {
     color: #fff;
     cursor: pointer;
     display: block;
-    font-size: 1.5em;
     line-height: 1.2em;
     margin-top: 25px;
     margin-bottom: 10px;
-    width: 210px;
     outline: none;
     padding: .8em 0;
-    margin-left: 17%;
     text-shadow: 0 1px #68B25B;
   }
   .submit:hover {
